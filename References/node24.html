@@ -1,0 +1,454 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>How to compute a homography</TITLE>
+<META NAME="description" CONTENT="How to compute a homography">
+<META NAME="keywords" CONTENT="geometry">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="geometry.css">
+
+<LINK REL="previous" HREF="node23.html">
+<LINK REL="up" HREF="node15.html">
+<LINK REL="next" HREF="node25.html">
+</HEAD>
+
+<BODY  bgcolor="#ffffff">
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A NAME="tex2html315"
+  HREF="node25.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html313"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html309"
+  HREF="node23.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html316"
+  HREF="node25.html">Camera models</A>
+<B> Up:</B> <A NAME="tex2html314"
+  HREF="node15.html">Collineations</A>
+<B> Previous:</B> <A NAME="tex2html310"
+  HREF="node23.html">Euclidean calibration of a</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00048900000000000000">
+How to compute a homography</A>
+</H3>
+
+<P>
+We are given 2D to 2D point correspondences 
+<!-- MATH
+ ${\bf x_i} \leftrightarrow {\bf x_i'}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="67" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img211.png"
+ ALT="$ {\bf x_i} \leftrightarrow {\bf x_i'}$"></SPAN>
+ (these are points in
+<!-- MATH
+ ${\cal P}^2$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="27" HEIGHT="22" ALIGN="BOTTOM" BORDER="0"
+ SRC="img3.png"
+ ALT="$ {\cal P}^2$"></SPAN>
+ and hence are homogeneous vectors of size <!-- MATH
+ $3 \times 1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="47" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img212.png"
+ ALT="$ 3 \times 1$"></SPAN>
+),
+and we have to find the homography <SPAN CLASS="MATH"><IMG
+ WIDTH="22" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img142.png"
+ ALT="$ {\bf H}$"></SPAN>
+ (<!-- MATH
+ $3 \times 3$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="47" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img79.png"
+ ALT="$ 3 \times 3$"></SPAN>
+ matrix)
+such that <!-- MATH
+ ${\bf x_i'} = {\bf H}{\bf x_i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="80" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img213.png"
+ ALT="$ {\bf x_i'} = {\bf H}{\bf x_i}$"></SPAN>
+.
+
+<P>
+Note that <!-- MATH
+ ${\bf x_i'}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img214.png"
+ ALT="$ {\bf x_i'}$"></SPAN>
+ and <!-- MATH
+ ${\bf H}{\bf x_i}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="38" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img215.png"
+ ALT="$ {\bf H}{\bf x_i}$"></SPAN>
+ are not numerically equal and
+they can differ by a scale factor. However, they have the same
+direction, and, hence <!-- MATH
+ ${\bf x_i'} \times {\bf H}{\bf x_i} = {\bf0}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="114" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img216.png"
+ ALT="$ {\bf x_i'} \times {\bf H}{\bf x_i} = {\bf0}$"></SPAN>
+.
+
+<P>
+Writing the <SPAN CLASS="MATH"><IMG
+ WIDTH="27" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img217.png"
+ ALT="$ j^{th}$"></SPAN>
+ row of <SPAN CLASS="MATH"><IMG
+ WIDTH="22" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img142.png"
+ ALT="$ {\bf H}$"></SPAN>
+ as <!-- MATH
+ ${{\bf h}^j}^T$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="34" HEIGHT="22" ALIGN="BOTTOM" BORDER="0"
+ SRC="img218.png"
+ ALT="$ {{\bf h}^j}^T$"></SPAN>
+, we have
+<P><!-- MATH
+ \begin{displaymath}
+{\bf H}{\bf x_i} = \left[
+        \begin{array}{c}
+              {{\bf h}^1}^T {\bf x_i} \\
+              {{\bf h}^2}^T {\bf x_i} \\
+              {{\bf h}^3}^T {\bf x_i} \\
+        \end{array}
+        \right]
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="151" HEIGHT="100" ALIGN="MIDDLE" BORDER="0"
+ SRC="img219.png"
+ ALT="$\displaystyle {\bf H}{\bf x_i} = \left[
+\begin{array}{c}
+{{\bf h}^1}^T {\bf x_i} \\
+{{\bf h}^2}^T {\bf x_i} \\
+{{\bf h}^3}^T {\bf x_i} \\
+\end{array}\right]
+$">
+</DIV><P>
+</P>
+Writing <!-- MATH
+ ${\bf x_i'}^T = (x_i',y_i',w_i')^T$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="148" HEIGHT="44" ALIGN="MIDDLE" BORDER="0"
+ SRC="img220.png"
+ ALT="$ {\bf x_i'}^T = (x_i',y_i',w_i')^T$"></SPAN>
+, the cross product
+becomes:
+<P><!-- MATH
+ \begin{displaymath}
+{\bf x_i'} \times {\bf H}{\bf x_i} =
+   \left[
+      \begin{array}{c}
+         y_i'{{\bf h}^3}^T {\bf x_i} - w_i' {{\bf h}^2}^T {\bf x_i} \\
+         w_i'{{\bf h}^1}^T {\bf x_i} - x_i' {{\bf h}^3}^T {\bf x_i} \\
+         x_i'{{\bf h}^2}^T {\bf x_i} - y_i' {{\bf h}^1}^T {\bf x_i} \\
+      \end{array}
+   \right]
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="295" HEIGHT="100" ALIGN="MIDDLE" BORDER="0"
+ SRC="img221.png"
+ ALT="$\displaystyle {\bf x_i'} \times {\bf H}{\bf x_i} =
+\left[
+\begin{array}{c}
+y_i'...
+...'{{\bf h}^2}^T {\bf x_i} - y_i' {{\bf h}^1}^T {\bf x_i} \\
+\end{array}\right]
+$">
+</DIV><P>
+</P>
+Since  <!-- MATH
+ ${{\bf h}^j}^T {\bf x_i} = {\bf x_i}^T {\bf h}^j$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="122" HEIGHT="48" ALIGN="MIDDLE" BORDER="0"
+ SRC="img222.png"
+ ALT="$ {{\bf h}^j}^T {\bf x_i} = {\bf x_i}^T {\bf h}^j$"></SPAN>
+, the system
+of equations <!-- MATH
+ ${\bf x_i'} \times {\bf H}{\bf x_i} = {\bf0}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="114" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img216.png"
+ ALT="$ {\bf x_i'} \times {\bf H}{\bf x_i} = {\bf0}$"></SPAN>
+ can
+be written in terms of the unknowns (the entries of <SPAN CLASS="MATH"><IMG
+ WIDTH="22" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img142.png"
+ ALT="$ {\bf H}$"></SPAN>
+) as:
+<P><!-- MATH
+ \begin{displaymath}
+\left[
+     \begin{array}{ccc}
+       {\bf0}^T & -w_i' {\bf x_i}^T & y_i' {\bf x_i}^T \\
+       w_i'{\bf x_i}^T & {\bf0}^T & -x_i' {\bf x_i}^T\\
+       -y_i'{\bf x_i}^T & x_i'{\bf x_i}^T& {\bf0}^T
+     \end{array}
+  \right]
+  \left[
+    \begin{array}{c}
+       {\bf h}^1 \\
+       {\bf h}^2 \\
+       {\bf h}^3 \\
+    \end{array}
+  \right] = {\bf0}
+\end{displaymath}
+ -->
+</P>
+<DIV ALIGN="CENTER" CLASS="mathdisplay">
+<IMG
+ WIDTH="353" HEIGHT="89" ALIGN="MIDDLE" BORDER="0"
+ SRC="img223.png"
+ ALT="$\displaystyle \left[
+\begin{array}{ccc}
+{\bf0}^T &amp; -w_i' {\bf x_i}^T &amp; y_i' {\b...
+...rray}{c}
+{\bf h}^1 \\
+{\bf h}^2 \\
+{\bf h}^3 \\
+\end{array}\right] = {\bf0}
+$">
+</DIV><P>
+</P>
+These equations have the form <!-- MATH
+ ${\bf A_i}{\bf h} = {\bf0}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="74" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img224.png"
+ ALT="$ {\bf A_i}{\bf h} = {\bf0}$"></SPAN>
+ where
+<SPAN CLASS="MATH"><IMG
+ WIDTH="26" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img225.png"
+ ALT="$ {\bf A_i}$"></SPAN>
+ is a <!-- MATH
+ $3 \times 9$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="47" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img226.png"
+ ALT="$ 3 \times 9$"></SPAN>
+ matrix and <SPAN CLASS="MATH"><IMG
+ WIDTH="17" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img227.png"
+ ALT="$ {\bf h}$"></SPAN>
+ is a <!-- MATH
+ $9 \times 1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="47" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img228.png"
+ ALT="$ 9 \times 1$"></SPAN>
+
+vector (the entries of <SPAN CLASS="MATH"><IMG
+ WIDTH="22" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img142.png"
+ ALT="$ {\bf H}$"></SPAN>
+). Note that <SPAN CLASS="MATH"><IMG
+ WIDTH="26" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img225.png"
+ ALT="$ {\bf A_i}$"></SPAN>
+ has rank of
+2 (third row is obtained, up to a scale, by a sum of <SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img229.png"
+ ALT="$ x_i'$"></SPAN>
+ times
+the first row and <SPAN CLASS="MATH"><IMG
+ WIDTH="19" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img230.png"
+ ALT="$ y_i'$"></SPAN>
+ times the second), and, consequently,
+for each point correspondence we have really only two equations.
+We may choose to work with only the first two, but it doesn't
+harm to keep all three. It may be useful to keep all three
+equations because if <SPAN CLASS="MATH"><IMG
+ WIDTH="58" HEIGHT="38" ALIGN="MIDDLE" BORDER="0"
+ SRC="img231.png"
+ ALT="$ w_i' = 0$"></SPAN>
+ (a point at infinity), then the
+first two collapse to a single equation.
+
+<P>
+Stacking up the equations for <!-- MATH
+ $i = 1,2,3,4$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="99" HEIGHT="34" ALIGN="MIDDLE" BORDER="0"
+ SRC="img232.png"
+ ALT="$ i = 1,2,3,4$"></SPAN>
+ (four points) we have
+<!-- MATH
+ ${\bf A}{\bf h} = {\bf0}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="69" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img233.png"
+ ALT="$ {\bf A}{\bf h} = {\bf0}$"></SPAN>
+ where <SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img22.png"
+ ALT="$ {\bf A}$"></SPAN>
+ is a <!-- MATH
+ $12 \times 9$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="56" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img234.png"
+ ALT="$ 12 \times 9$"></SPAN>
+ matrix
+whose rank is 8 (of-course, you will not choose four points such
+that any three are collinear). Consequently <SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img22.png"
+ ALT="$ {\bf A}$"></SPAN>
+ has a
+1-dimensional null space which provides a solution for <SPAN CLASS="MATH"><IMG
+ WIDTH="17" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img227.png"
+ ALT="$ {\bf h}$"></SPAN>
+.
+Such a solution can only be determined up to a non-zero scale
+factor, which suits you fine because <SPAN CLASS="MATH"><IMG
+ WIDTH="22" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img142.png"
+ ALT="$ {\bf H}$"></SPAN>
+ is anyway defined
+only up to a scale! A scale may be arbitrarily chosen for <SPAN CLASS="MATH"><IMG
+ WIDTH="17" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img227.png"
+ ALT="$ {\bf h}$"></SPAN>
+
+by insisting that <!-- MATH
+ $\| {\bf h} \| = 1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="70" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img235.png"
+ ALT="$ \Vert {\bf h} \Vert = 1$"></SPAN>
+. 
+
+<P>
+One can, of-course, stack up more equations by taking more point
+correspondences. The resulting over-determined system <!-- MATH
+ ${\bf Ah} = {\bf0}$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="69" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img236.png"
+ ALT="$ {\bf Ah} = {\bf0}$"></SPAN>
+
+may not have a solution at all (inconsistent measurements?). We
+can still find a least-squares solution: <EM>minimize <!-- MATH
+ $\|{\bf Ah} \|$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="52" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img237.png"
+ ALT="$ \Vert{\bf Ah} \Vert$"></SPAN>
+
+subject to <!-- MATH
+ $\| {\bf h} \| = 1$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="70" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img235.png"
+ ALT="$ \Vert {\bf h} \Vert = 1$"></SPAN>
+</EM>. 
+
+<P>
+In either case <SPAN CLASS="MATH"><IMG
+ WIDTH="17" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img227.png"
+ ALT="$ {\bf h}$"></SPAN>
+ is given by the last column of <SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img238.png"
+ ALT="$ {\bf V}$"></SPAN>
+
+where <!-- MATH
+ ${\bf A} = {\bf U\Sigma V}^T$
+ -->
+<SPAN CLASS="MATH"><IMG
+ WIDTH="105" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
+ SRC="img239.png"
+ ALT="$ {\bf A} = {\bf U\Sigma V}^T$"></SPAN>
+ is the <EM>singular value
+decomposition (SVD)</EM> of <SPAN CLASS="MATH"><IMG
+ WIDTH="21" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img22.png"
+ ALT="$ {\bf A}$"></SPAN>
+.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html315"
+  HREF="node25.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next.png"></A> 
+<A NAME="tex2html313"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up.png"></A> 
+<A NAME="tex2html309"
+  HREF="node23.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html316"
+  HREF="node25.html">Camera models</A>
+<B> Up:</B> <A NAME="tex2html314"
+  HREF="node15.html">Collineations</A>
+<B> Previous:</B> <A NAME="tex2html310"
+  HREF="node23.html">Euclidean calibration of a</A></DIV>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Subhashis Banerjee
+2008-01-20
+</ADDRESS>
+</BODY>
+</HTML>
